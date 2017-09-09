@@ -38,7 +38,7 @@ func Example() {
 	type Author struct {
 		// ID is the mongo id, needs to be set explicitly
 		ID bson.ObjectId `bson:"_id,omitempty"`
-
+		Active bool      `bson:"Active"`
 		// Name is the author's name
 		// unfortunatly mgo driver lowercases mongo keys by default
 		// so always explicitely set the key name to the field name
@@ -51,6 +51,7 @@ func Example() {
 	type Tag struct {
 		ID   bson.ObjectId `bson:"_id,omitempty"`
 		Name string        `bson:"Name" odm:"index"`
+
 	}
 
 	type Article struct {
@@ -95,7 +96,7 @@ func Example() {
 		return
 	}
 	// create some documents
-	author := &Author{Name: "John Doe"}
+	author := &Author{Name: "John Doe",Active:true}
 	programmingTag := &Tag{Name: "programming"}
 	article1 := &Article{Title: "Go tiger!", Author: author, Tags: []*Tag{{Name: "go"}, programmingTag}}
 	article2 := &Article{Title: "MongoDB", Author: author, Tags: []*Tag{programmingTag}}
@@ -474,9 +475,9 @@ func TestDocumentManager_FindAll_MappedBy(t *testing.T) {
 }
 
 func cleanUp(db *mgo.Database) {
-	for _, collection := range []string{"Article", "Tag", "Author"} {
-		db.C(collection).DropCollection()
-	}
+	//for _, collection := range []string{"Article", "Tag", "Author"} {
+	//	db.C(collection).DropCollection()
+	//}
 	db.Session.Close()
 }
 

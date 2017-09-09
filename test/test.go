@@ -19,7 +19,7 @@ import (
 	"log"
 	"runtime"
 
-	"../logger"
+	"github.com/munbit/imarn-odm/logger"
 	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
